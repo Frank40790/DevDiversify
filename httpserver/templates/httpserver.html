@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Files</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #00bfff;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        li {
+            margin: 10px;
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+            color: #00bfff;
+            display: block;
+            padding: 20px;
+            border: 2px solid #00bfff;
+            border-radius: 10px;
+            background-color: #1a1a1a;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        a:hover {
+            background-color: #00bfff;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shared Files</h1>
+    <ul>
+        {% for file in shared_files %}
+            <li><a href="{{ url_for('share_file', filename=file) }}">{{ file }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
