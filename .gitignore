@@ -153,6 +153,8 @@ cython_debug/
 
 # MacOS file
 .DS_Store
+.history/*
 
 # Internal docs
 workspace/
+

@@ -12,13 +12,7 @@ Welcome to **DevDiversify 🌍** - Your hub for a world of code diversity. Our G
 ## Content
 #### [GeoPoint Canvas](geopointcanvas/README.md) 🗺️
 #### [HTTP Server](httpserver/README.md)
-
-
-## Changelog
-### 0.1.0
-- Added [GeoPoint Canvas](geopointcanvas/README.md) 🗺️
-### 0.1.1
-- Added [HTTP Server](httpserver/README.md)
+#### [RunC](runc/README.md) 🚀
 
 ## Feedback and Contributions
 
