@@ -45,7 +45,7 @@ void compile(char *current_working_directory, char *tmp_path, char *file)
 
     int command_length = 8192;
     char *command = (char *)malloc(command_length * sizeof(char));
-    snprintf(command, command_length, "gcc -o \"%s\" \"%s\"", output_path, input_path);
+    snprintf(command, command_length, "gcc -Wall -o \"%s\".o \"%s\"", output_path, input_path);
 
     int status = system(command);
     // if (status == 0) {
@@ -71,7 +71,7 @@ void run(char *tmp_path, char *file)
 
     // Format the output path
     char output_path[8192];
-    snprintf(output_path, 8192, "\"%s/%s\"", tmp_path, filename_copy);
+    snprintf(output_path, 8192, "\"%s/%s\".o", tmp_path, filename_copy);
 
     printf("--------------------------------------------------\n");
     system(output_path);
@@ -86,6 +86,25 @@ int main(int argc, char *argv[])
         printf("Usage: %s <C source code file>\n", argv[0]);
         return 1;
     }
+
+    if (strcmp(argv[1], "init") == 0)
+    {
+        FILE *file_pointer;
+        char content[128] = "#include <stdio.h>\n"
+                            "#include <stdlib.h>\n"
+                            "int main(int argc, char *argv[])\n"
+                            "{\n"
+                            "\tprintf(\"Hello World\");\n"
+                            "return 0;\n"
+                            "}\n";
+        file_pointer = fopen("hello_world.c", "w");
+        // Write data to the file
+        fprintf(file_pointer, "%s", content);
+        fclose(file_pointer);
+        printf("Successfully create a basic script\n");
+        exit(0);
+    }
+
     // Print compiling
     // printf("Compiling: %s\n", argv[1]);
 
