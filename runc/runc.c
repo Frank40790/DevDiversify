@@ -28,9 +28,12 @@ void compile(char *current_working_directory, char *tmp_path, char *file)
     strcpy(filename_copy, file);
     char *dot_ptr = strrchr(filename_copy, '.');
 
-    if (dot_ptr != NULL && strcmp(dot_ptr, ".c") == 0) {
+    if (dot_ptr != NULL && strcmp(dot_ptr, ".c") == 0)
+    {
         *dot_ptr = '\0';
-    } else {
+    }
+    else
+    {
         printf("File %s does not have a .c extension.\n", input_path);
         exit(0);
     }
@@ -38,7 +41,8 @@ void compile(char *current_working_directory, char *tmp_path, char *file)
     // Format the output path
     snprintf(output_path, 8192, "%s/%s", tmp_path, filename_copy);
 
-    if (access(input_path, F_OK) == -1) {
+    if (access(input_path, F_OK) == -1)
+    {
         printf("File %s does not exist\n", input_path);
         exit(0);
     }
@@ -48,11 +52,14 @@ void compile(char *current_working_directory, char *tmp_path, char *file)
     snprintf(command, command_length, "gcc -Wall -o \"%s\".o \"%s\"", output_path, input_path);
 
     int status = system(command);
-    // if (status == 0) {
-    //     print("Compiled Successfully");
-    // } else {
-    //     print("Failed to compile");
-    // }
+    if (status == 0)
+    {
+        print("Compiled Successfully");
+    }
+    else
+    {
+        print("Failed to compile");
+    }
 }
 void run(char *tmp_path, char *file)
 {
@@ -62,9 +69,12 @@ void run(char *tmp_path, char *file)
     strcpy(filename_copy, file);
     char *dot_ptr = strrchr(filename_copy, '.');
 
-    if (dot_ptr != NULL && strcmp(dot_ptr, ".c") == 0) {
+    if (dot_ptr != NULL && strcmp(dot_ptr, ".c") == 0)
+    {
         *dot_ptr = '\0';
-    } else {
+    }
+    else
+    {
         printf("File does not have a .c extension.\n");
         exit(0);
     }
@@ -89,15 +99,26 @@ int main(int argc, char *argv[])
 
     if (strcmp(argv[1], "init") == 0)
     {
+        char file_name[8192];
+        if (argv[2] == NULL || argc < 3)
+        {
+            printf("Supply the file name: ");
+            scanf("%8191s", file_name);
+        }
+        else
+        {
+            strncpy(file_name, argv[2], 8191);
+            file_name[8191] = '\0';
+        }
         FILE *file_pointer;
         char content[128] = "#include <stdio.h>\n"
                             "#include <stdlib.h>\n"
                             "int main(int argc, char *argv[])\n"
                             "{\n"
                             "\tprintf(\"Hello World\");\n"
-                            "return 0;\n"
+                            "\treturn 0;\n"
                             "}\n";
-        file_pointer = fopen("hello_world.c", "w");
+        file_pointer = fopen(file_name, "w");
         // Write data to the file
         fprintf(file_pointer, "%s", content);
         fclose(file_pointer);
@@ -120,7 +141,7 @@ int main(int argc, char *argv[])
 
     // Get the file to compile
     for (int i = 1; i < argc; i++)
-    {   
+    {
         printf("Compiling: %-20s\n", argv[i]);
         compile(current_working_directory, tmp_path, argv[i]);
         printf("Running: %-20s\n", argv[i]);
