@@ -13,15 +13,21 @@ This is a small experiment that I did when exploring with linear algebra project
 
 #### 1. Install required dependencies
 
-Make sure `gcc` is installed on your system. You can install `gcc` using the following commands based on your operating system:
-
+-   **linux**:
+    ```bash
+    sudo apt install build-essential mesa-utils libglu1-mesa-dev freeglut3-dev libglfw3 libglfw3-dev
+    ```
 -   **macOS**:
     ```bash
-    brew install gcc glfw
+    brew install gcc glfw freeglut
     ```
 
 #### 2. Compile the code
 
+-   **linux**:
+    ```bash
+    gcc draw_v2.c -o draw_v2 -lglfw
+    ```
 -   **macOS**:
     ```bash
     gcc draw_v2.c -o draw_v2 -Wno-deprecated-declarations -lglfw -framework OpenGL
