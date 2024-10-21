@@ -28,9 +28,9 @@ typedef void* (*matmul_func)(void*, void*);
 // creating vector or matrix
 vector_t* create_vector(type_t* input, int size);
 matrix_t* create_matrix(type_t** input, int row, int col);
-matrix_t* transformation_matrix(float input[3][3]);
-matrix_t* projection_matrix(float input[2][3]);
-matrix_t* rotation_matrix(char direction, float theta);
+matrix_t* transformation_matrix(type_t input[3][3]);
+matrix_t* projection_matrix(type_t input[2][3]);
+matrix_t* rotation_matrix(char direction, type_t theta);
 
 // print vector or matrix
 void print_vector(vector_t* vec);
@@ -43,7 +43,7 @@ void draw_triangle(vector_t* coordinate_1, vector_t* coordinate_2,
                    vector_t* coordinate_3);
 
 // math
-float to_radian(float);
+type_t to_radian(type_t);
 matrix_t* mm(matrix_t* matrix_1,
              matrix_t* matrix_2);  // matrix matrix multiplication
 vector_t* mv(matrix_t* matrix,
@@ -55,8 +55,7 @@ void free_vector(vector_t* vec);
 void free_matrix(matrix_t* matrix);
 
 // utils
-void display(float);
-
+void display(type_t);
 
 int main() {
   if (!glfwInit()) {
@@ -72,7 +71,7 @@ int main() {
   glfwMakeContextCurrent(window);
   glClearColor(1.0, 1.0, 1.0, 1.0);  // Set background to white
 
-  float degree = 0;
+  type_t degree = 0;
   while (!glfwWindowShouldClose(window)) {
     display(degree);
     glfwSwapBuffers(window);
@@ -84,7 +83,7 @@ int main() {
   return 0;
 }
 
-void display(float degree) {
+void display(type_t degree) {
   glClear(GL_COLOR_BUFFER_BIT);
   glColor3f(1.0, 0.0, 0.0);  // set color to red
 
@@ -189,7 +188,7 @@ void display(float degree) {
   free_matrix(Ry);
   free_matrix(Rz);
 }
-float to_radian(float degree) { return degree * (M_PI / 180); }
+type_t to_radian(type_t degree) { return degree * (M_PI / 180); }
 
 vector_t* create_vector(type_t* values, int size) {
   vector_t* vector = calloc(1, sizeof(vector_t));
@@ -217,7 +216,7 @@ matrix_t* create_matrix(type_t** input, int row, int col) {
   return matrix;
 }
 
-matrix_t* transformation_matrix(float input[3][3]) {
+matrix_t* transformation_matrix(type_t input[3][3]) {
   type_t** input_dynamic = calloc(3, sizeof(type_t*));
   assert(input_dynamic);
 
@@ -240,7 +239,7 @@ matrix_t* transformation_matrix(float input[3][3]) {
   return matrix;
 }
 
-matrix_t* projection_matrix(float input[2][3]) {
+matrix_t* projection_matrix(type_t input[2][3]) {
   type_t** input_dynamic = calloc(2, sizeof(type_t*));
   assert(input_dynamic);
 
@@ -263,7 +262,7 @@ matrix_t* projection_matrix(float input[2][3]) {
   return matrix;
 }
 
-matrix_t* rotation_matrix(char direction, float theta) {
+matrix_t* rotation_matrix(char direction, type_t theta) {
   theta = to_radian(theta);
   type_t** R = calloc(3, sizeof(type_t*));  // Allocate 3 rows
   assert(R);
@@ -387,7 +386,7 @@ matrix_t* mm(matrix_t* matrix_1, matrix_t* matrix_2) {
   // Matrix multiplication
   for (int i = 0; i < matrix_1_row; i++) {
     for (int k = 0; k < matrix_2_col; k++) {
-      float num = 0.;
+      type_t num = 0;
       for (int j = 0; j < matrix_1_col; j++) {
         num += matrix_1->rows[i]->vector[j] * matrix_2->rows[j]->vector[k];
       }

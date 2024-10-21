@@ -158,3 +158,5 @@ cython_debug/
 # Internal docs
 workspace/
 
+# Visual Studio Code
+.vscode/
